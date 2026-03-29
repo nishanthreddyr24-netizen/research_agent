@@ -322,7 +322,7 @@ function ResearchAgent() {
       <aside className="ra-side">
         <div className="ra-brand">
           <div className="ra-brand-row"><div className="ra-brand-badge">RA</div><div>Research Agent</div></div>
-          <div className="ra-subtitle">Pinecone + Gemini + Groq</div>
+          <div className="ra-subtitle">Pinecone + Gemini + Groq + OpenRouter</div>
         </div>
         <input ref={fileRef} type="file" accept=".pdf,application/pdf" multiple style={{ display: "none" }} onChange={uploadFiles} />
         <button className="ra-btn" disabled={uploading} onClick={() => fileRef.current && fileRef.current.click()}>

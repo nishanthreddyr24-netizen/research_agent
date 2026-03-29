@@ -23,16 +23,21 @@ class AppSettings(BaseSettings):
     gemini_api_key: str = Field(default="", alias="GEMINI_API_KEY")
     pinecone_api_key: str = Field(default="", alias="PINECONE_API_KEY")
     groq_api_key: str = Field(default="", alias="GROQ_API_KEY")
+    openrouter_api_key: str = Field(default="", alias="OPENROUTER_API_KEY")
     generation_model: str = Field(
         default="llama-3.3-70b-versatile",
         validation_alias=AliasChoices("GROQ_MODEL", "MODEL_NAME"),
+    )
+    openrouter_generation_model: str = Field(
+        default="openai/gpt-4o-mini",
+        alias="OPENROUTER_MODEL",
     )
     generation_provider: str = Field(
         default="auto",
         alias="GENERATION_PROVIDER",
     )
     generation_fallback_order: str = Field(
-        default="gemini,groq",
+        default="gemini,openrouter,groq",
         alias="GENERATION_FALLBACK_ORDER",
     )
     generation_provider_cooldown_seconds: int = Field(

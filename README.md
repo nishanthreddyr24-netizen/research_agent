@@ -129,12 +129,14 @@ Important environment variables:
 
 - `GROQ_API_KEY`
 - `GEMINI_API_KEY`
+- `OPENROUTER_API_KEY`
 - `PINECONE_API_KEY`
-- `GENERATION_PROVIDER` (`auto`, `groq`, `gemini`)
-- `GENERATION_FALLBACK_ORDER` (default: `gemini,groq`)
+- `GENERATION_PROVIDER` (`auto`, `groq`, `gemini`, `openrouter`)
+- `GENERATION_FALLBACK_ORDER` (default: `gemini,openrouter,groq`)
 - `GENERATION_PROVIDER_COOLDOWN_SECONDS` (default: `600`)
 - `GROQ_MODEL` (default: `llama-3.3-70b-versatile`)
 - `GEMINI_MODEL` (default: `gemini-2.0-flash`)
+- `OPENROUTER_MODEL` (default: `openai/gpt-4o-mini`)
 - `EMBEDDING_PROVIDER` (`local`, `auto`, `gemini`)
 
 Retrieval/chunking knobs:

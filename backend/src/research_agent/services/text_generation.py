@@ -6,6 +6,7 @@ import time
 from research_agent.config import AppSettings
 from research_agent.services.gemini_text import GeminiTextService
 from research_agent.services.groq_text import GroqTextService
+from research_agent.services.openrouter_text import OpenRouterTextService
 
 
 class TextGenerationService:
@@ -13,6 +14,7 @@ class TextGenerationService:
         self._settings = settings
         self._groq = GroqTextService(settings)
         self._gemini = GeminiTextService(settings)
+        self._openrouter = OpenRouterTextService(settings)
         self._cooldowns: dict[str, float] = {}
 
     @property
@@ -22,7 +24,9 @@ class TextGenerationService:
             return self._groq.available
         if provider == "gemini":
             return self._gemini.available
-        return self._groq.available or self._gemini.available
+        if provider == "openrouter":
+            return self._openrouter.available
+        return self._groq.available or self._gemini.available or self._openrouter.available
 
     def generate(
         self,
@@ -44,6 +48,14 @@ class TextGenerationService:
         if provider == "gemini":
             return self._generate_with_preferred_provider(
                 preferred="gemini",
+                system_prompt=system_prompt,
+                user_prompt=user_prompt,
+                temperature=temperature,
+                max_output_tokens=max_output_tokens,
+            )
+        if provider == "openrouter":
+            return self._generate_with_preferred_provider(
+                preferred="openrouter",
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
                 temperature=temperature,
@@ -160,7 +172,7 @@ class TextGenerationService:
             raise RuntimeError(f"All generation providers failed. {joined}")
 
         raise RuntimeError(
-            "No generation provider configured. Set GROQ_API_KEY or GEMINI_API_KEY."
+            "No generation provider configured. Set GROQ_API_KEY, GEMINI_API_KEY, or OPENROUTER_API_KEY."
         )
 
     def _provider_order(self) -> list[str]:
@@ -170,19 +182,21 @@ class TextGenerationService:
             if token.strip()
         ]
         ordered: list[str] = []
-        for name in configured + ["gemini", "groq"]:
-            if name not in {"groq", "gemini"}:
+        for name in configured + ["gemini", "openrouter", "groq"]:
+            if name not in {"groq", "gemini", "openrouter"}:
                 continue
             if name in ordered:
                 continue
             ordered.append(name)
         return ordered
 
-    def _service_for(self, provider: str) -> GroqTextService | GeminiTextService | None:
+    def _service_for(self, provider: str) -> GroqTextService | GeminiTextService | OpenRouterTextService | None:
         if provider == "groq":
             return self._groq
         if provider == "gemini":
             return self._gemini
+        if provider == "openrouter":
+            return self._openrouter
         return None
 
     def _in_cooldown(self, provider: str) -> bool:
@@ -233,6 +247,6 @@ class TextGenerationService:
 
     def _provider(self) -> str:
         provider = (self._settings.generation_provider or "auto").strip().lower()
-        if provider in {"auto", "groq", "gemini"}:
+        if provider in {"auto", "groq", "gemini", "openrouter"}:
             return provider
         return "auto"

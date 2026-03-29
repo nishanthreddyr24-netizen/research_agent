@@ -54,6 +54,7 @@ class ResearchAgentRuntime:
             llm_available=bool(
                 self._settings.groq_api_key
                 or self._settings.gemini_api_key
+                or self._settings.openrouter_api_key
             ),
             indexed_papers=len(self._papers.list_papers()),
         )

@@ -28,9 +28,11 @@ Copy `backend/.env.example` to `backend/.env` and set:
 - `GEMINI_API_KEY`
 - `PINECONE_API_KEY`
 - `GROQ_API_KEY`
+- `OPENROUTER_API_KEY`
 - `GENERATION_PROVIDER` (`auto` | `groq` | `gemini`; default `auto`)
-- `GENERATION_FALLBACK_ORDER` (default `gemini,groq`)
+- `GENERATION_FALLBACK_ORDER` (default `gemini,openrouter,groq`)
 - `GENERATION_PROVIDER_COOLDOWN_SECONDS` (default `600`)
+- `OPENROUTER_MODEL` (default `openai/gpt-4o-mini`)
 - `EMBEDDING_PROVIDER` (`local` | `auto` | `gemini`; default `local`)
 
 `local`: fully offline hashing embeddings (no Gemini quota).
