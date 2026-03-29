@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+.npm-cache/
+.npm-prefix/
+uvicorn.out
+uvicorn.err
+http.out
+http.err
+*.pyc
+backend/data/papers/*
+backend/storage/*
+!backend/data/papers/.gitkeep
+!backend/storage/.gitkeep

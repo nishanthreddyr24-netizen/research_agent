@@ -1,0 +1,81 @@
+Metadata-Version: 2.4
+Name: research-agent-backend
+Version: 0.1.0
+Summary: Research agent backend powered by FastAPI, LangGraph, and LangChain.
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi<1.0,>=0.115
+Requires-Dist: uvicorn[standard]<1.0,>=0.30
+Requires-Dist: pydantic-settings<3.0,>=2.4
+Requires-Dist: google-genai<2.0,>=1.0
+Requires-Dist: langgraph<1.0,>=0.2
+Requires-Dist: langchain<1.0,>=0.3
+Requires-Dist: langchain-community<1.0,>=0.3
+Requires-Dist: langchain-text-splitters<1.0,>=0.3
+Requires-Dist: langsmith<1.0,>=0.1
+Requires-Dist: pinecone<7.0,>=6.0
+Requires-Dist: pypdf<6.0,>=5.0
+Requires-Dist: python-multipart<1.0,>=0.0.9
+Requires-Dist: orjson<4.0,>=3.10
+Provides-Extra: dev
+Requires-Dist: httpx<1.0,>=0.27; extra == "dev"
+Requires-Dist: pytest<9.0,>=8.3; extra == "dev"
+
+# Research Agent Backend
+
+This is the backend for the research agent.
+
+## Current milestone
+
+- FastAPI app with upload, delete, chat, health, style-profile, and retrieval-preview endpoints
+- LangGraph runtime with retrieval-backed chat
+- Pinecone vector database integration
+- Local hashing embeddings by default (Gemini optional)
+- Groq generation for chat and style memory
+- React frontend served directly by the backend
+
+## Provider split
+
+- Pinecone: vector database
+- Local hash / Gemini: embeddings
+- Groq: generation
+
+## Important note on HNSW
+
+Pinecone's current public create-index docs expose managed index options like serverless configuration, dimension, and metric. They do not expose a user-facing HNSW setting in the serverless flow. This backend therefore uses Pinecone's managed ANN retrieval path rather than pretending there is a configurable HNSW toggle.
+
+## Environment
+
+Copy `backend/.env.example` to `backend/.env` and set:
+
+- `GEMINI_API_KEY`
+- `PINECONE_API_KEY`
+- `GROQ_API_KEY`
+- `EMBEDDING_PROVIDER` (`local` | `auto` | `gemini`; default `local`)
+
+`local`: fully offline hashing embeddings (no Gemini quota).
+`auto`: try Gemini first, then fallback to local on quota/rate errors.
+
+LangSmith tracing (optional):
+- `LANGSMITH_TRACING=true`
+- `LANGSMITH_API_KEY=...`
+- `LANGSMITH_PROJECT=research-agent`
+- `LANGSMITH_ENDPOINT=https://api.smith.langchain.com` (optional)
+- `LANGCHAIN_TRACING_V2=true` (optional compatibility flag)
+
+Legacy compatibility: `ANTHROPIC_API_KEY` is also accepted as a fallback env name for Groq key material.
+
+## Run
+
+After dependencies are installed:
+
+```powershell
+uvicorn research_agent.api:app --reload --app-dir src
+```
+
+From the workspace root, this direct launch path also works:
+
+```powershell
+$env:PYTHONPATH='backend\src'
+.\.venv\Scripts\python.exe -m uvicorn research_agent.api:app --port 8010
+```

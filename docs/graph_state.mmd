@@ -1,0 +1,26 @@
+flowchart TD
+  START([START]) --> PREP[prepare_mode]
+  PREP --> RETR[retrieve]
+  RETR --> RERANK[rerank]
+  RERANK --> DRAFT[draft_answer]
+  DRAFT --> VALID[validate_answer]
+  VALID --> FINAL[finalize_answer]
+  FINAL --> END([END])
+
+  subgraph "Process Order"
+    P1["1. START: Graph invoked with session_id, mode, message, paper_ids, review_paper_id, history"]
+    P2["2. prepare_mode: set mode_instructions, debug.prepared_mode, debug.paper_count"]
+    P3["3. retrieve: mode-aware retrieval, collect candidates, retrieval debug"]
+    P4["4. rerank: lexical + section-signal rerank, comparator balancing, citations"]
+    P5["5. draft_answer: generate first grounded draft with citations"]
+    P6["6. validate_answer: second-pass factual validator revises unsupported claims"]
+    P7["7. finalize_answer: select final answer and attach citations/debug"]
+  end
+
+  START -.-> P1
+  PREP -.-> P2
+  RETR -.-> P3
+  RERANK -.-> P4
+  DRAFT -.-> P5
+  VALID -.-> P6
+  FINAL -.-> P7
