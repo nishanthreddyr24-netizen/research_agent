@@ -22,10 +22,7 @@ class AppSettings(BaseSettings):
 
     gemini_api_key: str = Field(default="", alias="GEMINI_API_KEY")
     pinecone_api_key: str = Field(default="", alias="PINECONE_API_KEY")
-    groq_api_key: str = Field(
-        default="",
-        validation_alias=AliasChoices("GROQ_API_KEY", "ANTHROPIC_API_KEY"),
-    )
+    groq_api_key: str = Field(default="", alias="GROQ_API_KEY")
     generation_model: str = Field(
         default="llama-3.3-70b-versatile",
         validation_alias=AliasChoices("GROQ_MODEL", "MODEL_NAME"),

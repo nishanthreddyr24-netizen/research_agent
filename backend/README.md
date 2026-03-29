@@ -40,8 +40,6 @@ LangSmith tracing (optional):
 - `LANGSMITH_ENDPOINT=https://api.smith.langchain.com` (optional)
 - `LANGCHAIN_TRACING_V2=true` (optional compatibility flag)
 
-Legacy compatibility: `ANTHROPIC_API_KEY` is also accepted as a fallback env name for Groq key material.
-
 ## Run
 
 After dependencies are installed:
