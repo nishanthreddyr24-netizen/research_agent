@@ -58,34 +58,41 @@ const CSS = `
   .ra-tag { margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
   .ra-user-bubble { padding: 12px 16px; border-radius: 18px 18px 6px 18px; color: white; white-space: pre-wrap; line-height: 1.55; }
   .ra-assistant-bubble { padding: 16px; border-radius: 18px 18px 18px 6px; background: #181c2e; color: #f3f8ff; white-space: pre-wrap; line-height: 1.6; }
+  .ra-assistant-bubble.local { background: linear-gradient(165deg, rgba(14,24,40,.96), rgba(10,18,32,.98)); border: 1px solid rgba(96,165,250,.22); }
   .ra-assistant-bubble.reviewer { background: linear-gradient(160deg, rgba(27,22,14,.96), rgba(26,29,47,.96)); border: 1px solid rgba(251,146,60,.28); box-shadow: inset 0 0 0 1px rgba(251,146,60,.08); }
   .ra-assistant-bubble.reviewer .ra-md-h2 { color: #ffd9b3; }
   .ra-assistant-bubble.reviewer .ra-md-h3 { color: #ffe7ce; }
   .ra-assistant-bubble.reviewer .ra-md-p { color: #fde8d4; }
   .ra-assistant-bubble.reviewer .ra-md-ul li { color: #f7dcc0; }
-  .ra-assistant-bubble.comparator { background: linear-gradient(155deg, rgba(37,18,34,.95), rgba(24,24,44,.96)); border: 1px solid rgba(244,114,182,.34); box-shadow: inset 0 0 0 1px rgba(244,114,182,.09); }
-  .ra-assistant-bubble.comparator .ra-md-h2 { color: #ffd7ef; }
-  .ra-assistant-bubble.comparator .ra-md-h3 { color: #ffe6f6; }
-  .ra-assistant-bubble.comparator .ra-md-p { color: #ffe8f8; }
-  .ra-assistant-bubble.comparator .ra-md-ul li { color: #f9dbef; }
-  .ra-assistant.comparator-message { max-width: 94%; }
+  .ra-assistant-bubble.comparator { background: linear-gradient(165deg, rgba(12,20,34,.97), rgba(10,16,28,.99)); border: 1px solid rgba(120,146,199,.3); box-shadow: inset 0 0 0 1px rgba(120,146,199,.08); }
+  .ra-assistant-bubble.comparator .ra-md-h2 { color: #e8f1ff; }
+  .ra-assistant-bubble.comparator .ra-md-h3 { color: #f0f6ff; }
+  .ra-assistant-bubble.comparator .ra-md-p { color: #d7e5ff; line-height: 1.78; }
+  .ra-assistant-bubble.comparator .ra-md-ul li { color: #d9e5fb; }
+  .ra-assistant.comparator-message { max-width: 96%; }
   .ra-comp-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-  .ra-comp-pill { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #ffd2eb; border: 1px solid rgba(244,114,182,.44); background: rgba(244,114,182,.18); border-radius: 999px; padding: 4px 10px; font-weight: 700; }
-  .ra-comp-copy { border: 1px solid rgba(236,143,198,.45); background: rgba(244,114,182,.15); color: #ffe6f7; border-radius: 10px; font-size: 11px; padding: 5px 10px; cursor: pointer; font-weight: 700; }
-  .ra-comp-copy:hover { background: rgba(244,114,182,.26); }
-  .ra-comp-shell { display: flex; flex-direction: column; gap: 10px; }
-  .ra-comp-preface { padding: 12px 12px 4px 12px; border-radius: 12px; border: 1px solid rgba(236,143,198,.24); background: rgba(33,19,34,.64); }
+  .ra-comp-pill { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #d7e8ff; border: 1px solid rgba(120,146,199,.42); background: rgba(120,146,199,.16); border-radius: 999px; padding: 4px 10px; font-weight: 600; }
+  .ra-comp-copy { border: 1px solid rgba(120,146,199,.45); background: rgba(120,146,199,.14); color: #eaf3ff; border-radius: 10px; font-size: 11px; padding: 5px 10px; cursor: pointer; font-weight: 600; }
+  .ra-comp-copy:hover { background: rgba(120,146,199,.24); }
+  .ra-comp-shell { display: flex; flex-direction: column; gap: 12px; }
+  .ra-comp-preface { padding: 14px 14px 8px 14px; border-radius: 12px; border: 1px solid rgba(120,146,199,.24); background: rgba(17,27,44,.75); }
   .ra-comp-outline { display: flex; flex-wrap: wrap; gap: 8px; }
-  .ra-comp-outline-chip { padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(244,114,182,.34); background: rgba(244,114,182,.14); color: #ffd9f0; font-size: 11px; }
-  .ra-comp-sections { display: grid; grid-template-columns: 1fr; gap: 10px; }
-  .ra-comp-section { border-radius: 14px; border: 1px solid rgba(236,143,198,.26); background: linear-gradient(160deg, rgba(35,16,34,.68), rgba(19,17,34,.72)); padding: 12px; box-shadow: 0 12px 24px rgba(0,0,0,.18); }
-  .ra-comp-section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .ra-comp-section-index { min-width: 32px; height: 24px; border-radius: 8px; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #ffd7ef; background: rgba(244,114,182,.2); border: 1px solid rgba(244,114,182,.42); }
-  .ra-comp-section-title { margin: 0; font-size: 15px; color: #ffe6f7; font-weight: 700; letter-spacing: .01em; }
+  .ra-comp-outline-chip { padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(120,146,199,.3); background: rgba(120,146,199,.12); color: #dce9ff; font-size: 11px; }
+  .ra-comp-sections { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .ra-comp-section { border-radius: 14px; border: 1px solid rgba(120,146,199,.24); background: linear-gradient(160deg, rgba(19,30,47,.8), rgba(14,24,39,.82)); padding: 14px; box-shadow: 0 12px 24px rgba(0,0,0,.17); }
+  .ra-comp-section.claim-matrix { border-left: 4px solid rgba(96,165,250,.72); }
+  .ra-comp-section.conflict-map { border-left: 4px solid rgba(251,146,60,.72); }
+  .ra-comp-section.benchmark-verdict-matrix { border-left: 4px solid rgba(52,211,153,.72); }
+  .ra-comp-section.synthesis-blueprint { border-left: 4px solid rgba(244,114,182,.72); }
+  .ra-comp-section.decision-by-use-case { border-left: 4px solid rgba(250,204,21,.72); }
+  .ra-comp-section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+  .ra-comp-section-index { min-width: 32px; height: 24px; border-radius: 8px; display: grid; place-items: center; font-size: 11px; font-weight: 600; color: #d7e7ff; background: rgba(120,146,199,.16); border: 1px solid rgba(120,146,199,.36); }
+  .ra-comp-section-title { margin: 0; font-size: 15px; color: #eef4ff; font-weight: 600; letter-spacing: .01em; }
   .ra-assistant-bubble.comparator .ra-md-h2 { margin: 0 0 8px 0; }
-  .ra-assistant-bubble.comparator .ra-md-table-wrap { border-color: rgba(236,143,198,.34); background: rgba(31,15,32,.65); }
-  .ra-assistant-bubble.comparator .ra-md-table th { background: rgba(76,31,65,.68); color: #ffe4f5; }
-  .ra-assistant-bubble.comparator .ra-md-table td { color: #ffe7f8; }
+  .ra-assistant-bubble.comparator .ra-md-table-wrap { border-color: rgba(120,146,199,.28); background: rgba(17,28,44,.68); }
+  .ra-assistant-bubble.comparator .ra-md-table th { background: rgba(31,47,71,.84); color: #edf4ff; }
+  .ra-assistant-bubble.comparator .ra-md-table td { color: #dce9ff; }
+  .ra-assistant-bubble.comparator .ra-md-table tbody tr:nth-child(even) td { background: rgba(24,37,57,.45); }
   .ra-review-live { margin-bottom: 12px; border-radius: 14px; border: 1px solid rgba(251,146,60,.3); background: rgba(39,26,14,.55); padding: 10px; }
   .ra-review-live-head { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: #ffd7ac; margin-bottom: 8px; }
   .ra-review-live-list { display: grid; gap: 8px; }
@@ -126,8 +133,13 @@ const CSS = `
   .ra-md-table th { background: rgba(30,40,66,.9); color: #eef5ff; font-weight: 700; }
   .ra-md-table td { color: #d6e4ff; }
   .ra-md-table tr:last-child td { border-bottom: none; }
-  .ra-md-strong { color: #ffffff; font-weight: 700; }
+  .ra-md-strong { color: #ffffff; font-weight: 550; }
+  .ra-assistant-bubble.comparator .ra-md-strong { color: #e6f0ff; font-weight: 500; }
   .ra-md-code { padding: 1px 6px; border-radius: 6px; background: rgba(96,165,250,.2); border: 1px solid rgba(96,165,250,.38); color: #cfe3ff; font-family: "IBM Plex Mono","Consolas",monospace; font-size: 12px; }
+  .ra-md-math-inline { padding: 1px 6px; border-radius: 6px; border: 1px solid rgba(148,163,184,.36); background: rgba(15,23,42,.55); color: #edf4ff; display: inline-block; }
+  .ra-md-math-block { margin: 0 0 12px 0; border-radius: 12px; border: 1px solid rgba(148,163,184,.32); background: linear-gradient(165deg, rgba(12,19,33,.92), rgba(9,15,27,.94)); padding: 12px; overflow-x: auto; }
+  .ra-md-math-fallback { margin: 0; color: #e7f0ff; font-family: "Times New Roman","Cambria Math","IBM Plex Serif",serif; font-size: 16px; line-height: 1.5; white-space: pre-wrap; }
+  .ra-md-math-inline-fallback { font-family: "Times New Roman","Cambria Math","IBM Plex Serif",serif; font-style: italic; font-size: 15px; }
   .ra-cites { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(145,164,203,.14); }
   .ra-cites-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .ra-cites-title { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: #9cb3da; font-weight: 700; }
@@ -232,15 +244,44 @@ function simplifyError(detail) {
   return text || "Request failed.";
 }
 
+function renderLatex(expression, { displayMode = false, key } = {}) {
+  const latex = String(expression || "").trim();
+  if (!latex) return null;
+  const katex = typeof window !== "undefined" ? window.katex : null;
+  if (katex && typeof katex.renderToString === "function") {
+    try {
+      const html = katex.renderToString(latex, { displayMode, throwOnError: false, strict: "ignore" });
+      if (displayMode) {
+        return <div key={key} className="ra-md-math-block" dangerouslySetInnerHTML={{ __html: html }} />;
+      }
+      return <span key={key} className="ra-md-math-inline" dangerouslySetInnerHTML={{ __html: html }} />;
+    } catch (_error) {
+      // Fall through to graceful text fallback.
+    }
+  }
+
+  if (displayMode) {
+    return (
+      <div key={key} className="ra-md-math-block">
+        <pre className="ra-md-math-fallback">{latex}</pre>
+      </div>
+    );
+  }
+  return <code key={key} className="ra-md-math-inline ra-md-math-inline-fallback">{latex}</code>;
+}
+
 function renderInlineSegments(text, keyPrefix = "seg") {
   const raw = String(text || "");
-  const tokens = raw.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean);
+  const tokens = raw.split(/(\*\*[^*]+\*\*|`[^`]+`|\$[^$\n]+\$)/g).filter(Boolean);
   return tokens.map((token, index) => {
     if (/^\*\*[^*]+\*\*$/.test(token)) {
       return <strong key={`${keyPrefix}-b-${index}`} className="ra-md-strong">{token.slice(2, -2)}</strong>;
     }
     if (/^`[^`]+`$/.test(token)) {
       return <code key={`${keyPrefix}-c-${index}`} className="ra-md-code">{token.slice(1, -1)}</code>;
+    }
+    if (/^\$[^$\n]+\$$/.test(token)) {
+      return renderLatex(token.slice(1, -1), { displayMode: false, key: `${keyPrefix}-m-${index}` });
     }
     return <React.Fragment key={`${keyPrefix}-t-${index}`}>{token}</React.Fragment>;
   });
@@ -252,6 +293,9 @@ function renderAssistantMarkdown(content) {
   let listType = null;
   let listItems = [];
   let tableRows = [];
+  let inMathBlock = false;
+  let mathLines = [];
+  let mathDelimiter = "$$";
   let key = 0;
 
   const flushList = () => {
@@ -315,8 +359,52 @@ function renderAssistantMarkdown(content) {
     );
   };
 
+  const flushMathBlock = () => {
+    if (!mathLines.length) return;
+    const latex = mathLines.join("\n").trim();
+    mathLines = [];
+    if (!latex) return;
+    blocks.push(renderLatex(latex, { displayMode: true, key: `math-${key++}` }));
+  };
+
   for (const line of lines) {
     const trimmed = line.trim();
+
+    if (inMathBlock) {
+      if (
+        (mathDelimiter === "$$" && trimmed === "$$")
+        || (mathDelimiter === "\\[" && trimmed === "\\]")
+      ) {
+        flushMathBlock();
+        inMathBlock = false;
+        mathDelimiter = "$$";
+      } else {
+        mathLines.push(line);
+      }
+      continue;
+    }
+
+    const singleLineDollarMath = trimmed.match(/^\$\$(.+)\$\$$/);
+    const singleLineBracketMath = trimmed.match(/^\\\[(.+)\\\]$/);
+    if (singleLineDollarMath || singleLineBracketMath) {
+      flushList();
+      flushTable();
+      const latex = (singleLineDollarMath ? singleLineDollarMath[1] : singleLineBracketMath[1]).trim();
+      if (latex) {
+        blocks.push(renderLatex(latex, { displayMode: true, key: `math-single-${key++}` }));
+      }
+      continue;
+    }
+
+    if (trimmed === "$$" || trimmed === "\\[") {
+      flushList();
+      flushTable();
+      inMathBlock = true;
+      mathDelimiter = trimmed === "\\[" ? "\\[" : "$$";
+      mathLines = [];
+      continue;
+    }
+
     if (!trimmed) {
       flushList();
       flushTable();
@@ -331,7 +419,7 @@ function renderAssistantMarkdown(content) {
 
     flushTable();
 
-    const orderedMatch = trimmed.match(/^(\d+)\.\s+(.+)/);
+    const orderedMatch = trimmed.match(/^\s*(\d+)\.\s+(.+)/);
     if (orderedMatch) {
       if (listType && listType !== "ol") flushList();
       listType = "ol";
@@ -339,7 +427,7 @@ function renderAssistantMarkdown(content) {
       continue;
     }
 
-    const unorderedMatch = trimmed.match(/^[-*]\s+(.+)/);
+    const unorderedMatch = trimmed.match(/^\s*[-*+]\s+(.+)/);
     if (unorderedMatch) {
       if (listType && listType !== "ul") flushList();
       listType = "ul";
@@ -364,9 +452,35 @@ function renderAssistantMarkdown(content) {
     blocks.push(<p key={`p-${key++}`} className="ra-md-p">{renderInlineSegments(trimmed, `p-${key}`)}</p>);
   }
 
+  flushMathBlock();
   flushList();
   flushTable();
   return <div className="ra-md">{blocks.length ? blocks : <p className="ra-md-p">{content}</p>}</div>;
+}
+
+const COMPARATOR_SECTION_TITLES = [
+  "Papers Compared",
+  "Claim Matrix",
+  "Conflict Map",
+  "Benchmark Verdict Matrix",
+  "Method Trade-offs",
+  "Synthesis Blueprint",
+  "Decision By Use Case",
+];
+
+function normalizeComparatorMarkdown(content) {
+  let normalized = String(content || "").replace(/\r\n/g, "\n");
+  for (const title of COMPARATOR_SECTION_TITLES) {
+    const escaped = title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const linePattern = new RegExp(`^\\s*${escaped}\\b\\s*:?(.*)$`, "gmi");
+    normalized = normalized.replace(linePattern, (full, tail) => {
+      const trimmed = String(full || "").trim();
+      if (trimmed.startsWith("#")) return full;
+      const rest = String(tail || "").trim();
+      return rest ? `## ${title}\n${rest}` : `## ${title}`;
+    });
+  }
+  return normalized;
 }
 
 function splitComparatorSections(content) {
@@ -406,10 +520,20 @@ function splitComparatorSections(content) {
   };
 }
 
+function comparatorSectionClass(title) {
+  const slug = String(title || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || "general";
+}
+
 function renderComparatorAnswer(content) {
-  const { intro, sections } = splitComparatorSections(content);
+  const normalized = normalizeComparatorMarkdown(content);
+  const { intro, sections } = splitComparatorSections(normalized);
   if (!sections.length) {
-    return renderAssistantMarkdown(content);
+    return renderAssistantMarkdown(normalized);
   }
 
   return (
@@ -424,7 +548,7 @@ function renderComparatorAnswer(content) {
       </div>
       <div className="ra-comp-sections">
         {sections.map((section, index) => (
-          <section key={`sec-${index}`} className="ra-comp-section">
+          <section key={`sec-${index}`} className={`ra-comp-section ${comparatorSectionClass(section.title)}`}>
             <div className="ra-comp-section-head">
               <span className="ra-comp-section-index">{String(index + 1).padStart(2, "0")}</span>
               <h3 className="ra-comp-section-title">{section.title}</h3>
@@ -451,33 +575,16 @@ function groupCitationsByFilename(citations) {
 
 function renderReviewerFinalReportCard(report) {
   if (!report || typeof report !== "object") return null;
-  const agreements = Array.isArray(report.agreements) ? report.agreements.filter(Boolean) : [];
-  const disagreements = Array.isArray(report.disagreements) ? report.disagreements.filter(Boolean) : [];
   const commonPoints = Array.isArray(report.common_points) ? report.common_points.filter(Boolean) : [];
-  const suggestions = Array.isArray(report.final_suggestions) ? report.final_suggestions.filter(Boolean) : [];
   const confidence = Number.isFinite(Number(report.confidence)) ? Number(report.confidence) : null;
 
   return (
     <div className="ra-review-report">
       <div className="ra-review-head">
-        <div className="ra-review-title">Final Debate Report</div>
-        <div className="ra-review-chip">{confidence !== null ? `confidence ${(confidence * 100).toFixed(0)}%` : "panel summary"}</div>
+        <div className="ra-review-title">Panel Snapshot</div>
+        <div className="ra-review-chip">{confidence !== null ? `confidence ${(confidence * 100).toFixed(0)}%` : "executive summary"}</div>
       </div>
       <div className="ra-review-overview">{report.overview || "Final panel summary is ready."}</div>
-      <div className="ra-review-grid">
-        <div className="ra-review-col">
-          <h4>Agreements</h4>
-          <ul>
-            {(agreements.length ? agreements : ["No explicit agreements captured."]).map((item, idx) => <li key={`agr-${idx}`}>{item}</li>)}
-          </ul>
-        </div>
-        <div className="ra-review-col">
-          <h4>Major Disagreements</h4>
-          <ul>
-            {(disagreements.length ? disagreements : ["No major disagreements captured."]).map((item, idx) => <li key={`dis-${idx}`}>{item}</li>)}
-          </ul>
-        </div>
-      </div>
       <div className="ra-review-col" style={{ marginBottom: 10 }}>
         <h4>Common Points</h4>
         <ul>
@@ -487,22 +594,16 @@ function renderReviewerFinalReportCard(report) {
       <div className="ra-review-grid" style={{ marginBottom: 10 }}>
         <div className="ra-review-col">
           <h4>Skeptic Conclusion</h4>
-          <ul><li>{report.skeptic_conclusion || "Not available."}</li></ul>
+          <div className="ra-review-overview">{report.skeptic_conclusion || "Not available."}</div>
         </div>
         <div className="ra-review-col">
           <h4>Advocate Conclusion</h4>
-          <ul><li>{report.advocate_conclusion || "Not available."}</li></ul>
+          <div className="ra-review-overview">{report.advocate_conclusion || "Not available."}</div>
         </div>
       </div>
       <div className="ra-review-col" style={{ marginBottom: 10 }}>
         <h4>Joint Conclusion</h4>
-        <ul><li>{report.joint_conclusion || "Not available."}</li></ul>
-      </div>
-      <div className="ra-review-col" style={{ marginBottom: 10 }}>
-        <h4>Final Suggestions</h4>
-        <ul>
-          {(suggestions.length ? suggestions : ["No final suggestions captured."]).map((item, idx) => <li key={`sug-${idx}`}>{item}</li>)}
-        </ul>
+        <div className="ra-review-overview">{report.joint_conclusion || "Not available."}</div>
       </div>
       <div className="ra-review-decision">
         <div className="ra-review-decision-title">Final Decision</div>
@@ -998,7 +1099,7 @@ function ResearchAgent() {
                 const mode = modeOf(item.mode);
                 const assistant = item.role === "assistant";
                 const bubbleClass = assistant
-                  ? `ra-assistant-bubble${item.mode === "reviewer" ? " reviewer" : ""}${item.mode === "comparator" ? " comparator" : ""}`
+                  ? `ra-assistant-bubble${item.mode === "local" ? " local" : ""}${item.mode === "reviewer" ? " reviewer" : ""}${item.mode === "comparator" ? " comparator" : ""}`
                   : "ra-user-bubble";
                 const comparatorCiteGroups = assistant && item.mode === "comparator"
                   ? groupCitationsByFilename(item.citations || [])
