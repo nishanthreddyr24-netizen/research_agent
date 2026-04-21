@@ -7658,27 +7658,39 @@ def _build_reviewer_final_report(
         context_snapshot=context_snapshot,
         field_context=field_context,
     )
+    bias_instruction, bias_score = _calculate_panel_bias_instruction(
+        vector_verdicts=vector_verdicts,
+        vector_judgments=vector_judgments,
+    )
     if not text_service.available:
+        fallback["internal_bias_score"] = bias_score
         return fallback
     try:
+        system_prompt = (
+            "You are generating a final panel report for a two-reviewer paper debate.\n"
+            "Return JSON only with keys:\n"
+            "overview (string), agreements (array of strings), disagreements (array of strings),\n"
+            "common_points (array of strings), skeptic_conclusion (string), advocate_conclusion (string),\n"
+            "joint_conclusion (string), field_context (array of strings), final_suggestions (array of strings), final_decision (string), confidence (number 0..1).\n"
+            "Requirements:\n"
+            "- concise, evidence-grounded, no generic filler\n"
+            "- avoid repeating near-identical suggestions across claims\n"
+            "- every suggestion must be claim-specific and actionable\n"
+            "- common_points must be substantive reviewer takeaways, not placeholders\n"
+            "- field_context must separate paper-grounded novelty from field-relative novelty and historical importance\n"
+            "- skeptic_conclusion, advocate_conclusion, and joint_conclusion should each be 2-3 sentences, specific to this paper and panel outcome\n"
+            "- do not output lines like 'the provided evidence supports the claim' or 'no major unresolved disagreements were recorded' unless there is no stronger paper-specific wording available\n\n"
+        )
+        if bias_instruction:
+            system_prompt += f"{bias_instruction}\n\n"
+        
+        system_prompt += (
+            "Quality target:\n"
+            f"{_reviewer_output_vision()}"
+        )
+
         response = text_service.generate(
-            system_prompt=(
-                "You are generating a final panel report for a two-reviewer paper debate.\n"
-                "Return JSON only with keys:\n"
-                "overview (string), agreements (array of strings), disagreements (array of strings),\n"
-                "common_points (array of strings), skeptic_conclusion (string), advocate_conclusion (string),\n"
-                "joint_conclusion (string), field_context (array of strings), final_suggestions (array of strings), final_decision (string), confidence (number 0..1).\n"
-                "Requirements:\n"
-                "- concise, evidence-grounded, no generic filler\n"
-                "- avoid repeating near-identical suggestions across claims\n"
-                "- every suggestion must be claim-specific and actionable\n"
-                "- common_points must be substantive reviewer takeaways, not placeholders\n"
-                "- field_context must separate paper-grounded novelty from field-relative novelty and historical importance\n"
-                "- skeptic_conclusion, advocate_conclusion, and joint_conclusion should each be 2-3 sentences, specific to this paper and panel outcome\n"
-                "- do not output lines like 'the provided evidence supports the claim' or 'no major unresolved disagreements were recorded' unless there is no stronger paper-specific wording available\n\n"
-                "Quality target:\n"
-                f"{_reviewer_output_vision()}"
-            ),
+            system_prompt=system_prompt,
             user_prompt=(
                 "Attack vectors with verdicts:\n"
                 f"{json.dumps(vector_verdicts)}\n\n"
@@ -7740,8 +7752,10 @@ def _build_reviewer_final_report(
                 if quality_issues:
                     fallback["quality_guard"] = quality_issues
                     return _humanize_reviewer_report(report=fallback, attack_vectors=attack_vectors)
+                report["internal_bias_score"] = bias_score
                 return _humanize_reviewer_report(report=report, attack_vectors=attack_vectors)
     except Exception:
+        fallback["internal_bias_score"] = bias_score
         pass
     return _humanize_reviewer_report(report=fallback, attack_vectors=attack_vectors)
 
@@ -9309,6 +9323,47 @@ def extract_reviewer_state(state: GraphState) -> dict[str, Any]:
         if key in state:
             snapshot[key] = deepcopy(state[key])
     return snapshot
+
+
+def _calculate_panel_bias_instruction(
+    *,
+    vector_verdicts: dict[str, str],
+    vector_judgments: dict[str, dict[str, Any]],
+) -> tuple[str, float]:
+    if not vector_verdicts:
+        return "", 0.0
+
+    total_score = 0.0
+    total_confidence = 0.0
+    for vid, verdict in vector_verdicts.items():
+        confidence = float(vector_judgments.get(vid, {}).get("confidence", 0.5))
+        total_confidence += confidence
+        if verdict == "skeptic_prevailed":
+            total_score -= confidence
+        elif verdict == "advocate_prevailed":
+            total_score += confidence
+
+    if total_confidence == 0:
+        return "", 0.0
+
+    bias_score = total_score / total_confidence  # -1.0 to 1.0
+
+    # 60% threshold
+    if bias_score <= -0.6:
+        # High Skeptic Bias
+        return (
+            "Dynamic Bias Adjustment: The panel is currently one-sided towards the Skeptic. "
+            "Your report MUST prioritize finding valid Advocate defenses and shared benchmarks to ensure the final report remains balanced and constructive.",
+            bias_score,
+        )
+    elif bias_score >= 0.6:
+        # High Advocate Bias
+        return (
+            "Dynamic Bias Adjustment: The Advocate's position is prevailing. "
+            "Your report MUST ensure the Skeptic's core technical concerns are not softened or erased in the executive summary.",
+            bias_score,
+        )
+    return "", bias_score
 
 
 def build_graph():
